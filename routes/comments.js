@@ -24,5 +24,29 @@ router.get("/:area", async (req, res) => {
   }
 });
 
+// POST /api/comments
+router.post("/", async (req, res) => {
+
+  try {
+
+    const { area, text } = req.body; // Destructures the request body to create local variables for 'area' and 'text', based on the keys sent in the POST request
+
+
+    // Checks if 'area' and 'text' are present in the request body
+    if (!area || !text) {
+      return res.status(400).json({ message: "Both area and text are required!" }) // If one of these requirements dont meet you get this error message
+    }
+
+    const newComment = new Comment({ area, text }); // using the comment mongoose model to create a new comment object
+    const savedComment = await newComment.save(); // Saving the new comment to the DB
+
+    res.status(201).json(savedComment) // the post was created 👍🏼 returns the saved comment in JSON format
+
+  }
+  catch (err) {
+    console.error("😓 Error creating comment:", err);
+    res.status(500).json({ message: "Server error creating comment" })
+  }
+})
 
 export default router;
