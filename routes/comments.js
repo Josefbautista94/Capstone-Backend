@@ -49,4 +49,35 @@ router.post("/", async (req, res) => {
   }
 })
 
+// PUT /api/comments/:id
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params // Extracts/pulling the comment ID from the URL
+    const { area, text } = req.body // Updates the field from the body
+
+    // This will check if at least one field is provided
+    if (!area && !text) {
+      return res.status(400).json({ message: "You at least have to provide one field! Either area or field!" })
+    }
+
+    const updateComment = await Comment.findByIdAndUpdate(
+      id,               // Telling MONGO to go find the comment with this specific _id value and update it.
+      { area, text },  // Only update the fields that are defined, this can be partial
+      { new: true }   // Returns the updated document otherwise without this it would return the old one
+    );
+
+    if (!updateComment) { // If mongoDB doesnt fins a document to edit we return this;
+      return res.status(404).json({ message: "The comment was not found!" })
+    }
+
+    res.status(200).json(updateComment) // Respond with the updated comment
+
+  } catch (err) {
+    console.error("😓 There was an error trying to update the comment:", err)
+    res.status(500).json({ message: "There was a server error updating the comment" })
+  }
+
+
+})
+
 export default router;
