@@ -2,6 +2,23 @@ import express from "express";
 import Bookmark from "../models/Bookmark.js";
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+
+  try {
+    const bookmarks = await Bookmark.find() // Fetch all bookmarks from the database
+
+    res.status(200).json(bookmarks) // Return them as JSON
+
+
+
+  } catch (err) {
+    console.error("😓 There was an error fetching the bookmarks:", err)
+    res.status(500).json({ message: "Server error fetching bookmarks. 🙁" })
+  }
+
+
+});
+
 // POST /api/bookmarks
 router.post("/", async (req, res) => {
   try {
