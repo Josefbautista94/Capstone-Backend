@@ -2,6 +2,23 @@ import express from "express";
 import Bookmark from "../models/Bookmark.js";
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+
+  try {
+    const bookmarks = await Bookmark.find() // Fetch all bookmarks from the database
+
+    res.status(200).json(bookmarks) // Return them as JSON
+
+
+
+  } catch (err) {
+    console.error("😓 There was an error fetching the bookmarks:", err)
+    res.status(500).json({ message: "Server error fetching bookmarks. 🙁" })
+  }
+
+
+});
+
 // POST /api/bookmarks
 router.post("/", async (req, res) => {
   try {
@@ -24,7 +41,7 @@ router.post("/", async (req, res) => {
     }
 
     const newBookmark = new Bookmark({ // Create a new Bookmark instance using those unpacked variables up there to build a Mongoose document.
-      // That document follows the structure of the BookmarkSchema, its not a plain objectm its now a full Mongoose model instance
+      // That document follows the structure of the BookmarkSchema — it's not a plain object, it's a full Mongoose model instance
       cmplntNum,
       boroNm,
       ofnsDesc,
@@ -42,8 +59,8 @@ router.post("/", async (req, res) => {
 
   } catch (err) {
     if (err.code === 11000) { // MongoDB gives a special error code 11000 when you try to insert a duplicate value into a field marked as unique, if the error code is 11000, it means a bookmark with the same cmplntNum already exists (duplicate key violation)
-      // Returning a more cleaner and accurate message to the user instead
-      return res.status(409).json({ message: "This crime is already bookmarked no need for dupliation." }); // Status for something that violates uniqueness or conflicts with existing data.
+      // Returning a cleaner, more accurate message to the user
+      return res.status(409).json({ message: "This crime has already been bookmarked." }); // Status for something that violates uniqueness or conflicts with existing data.
     }
     console.error("😓 There was an error saving the bookmark:", err) // if a non 11000 error occurs
     res.status(500).json({ message: "There was a server error saving the bookmark. 😭" });
