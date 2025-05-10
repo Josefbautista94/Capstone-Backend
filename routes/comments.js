@@ -20,7 +20,7 @@ router.get("/:area", async (req, res) => {
   }
   catch (err) {
     console.error("😓 There was an error fetching the comments:", err);
-    res.status(500).json({ message: "Server error fetching comments." });
+    res.status(500).json({ message: "Server error fetching comments. 🙁" });
   }
 });
 
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
   }
   catch (err) {
     console.error("😓 Error creating comment:", err);
-    res.status(500).json({ message: "Server error creating comment" })
+    res.status(500).json({ message: "Server error creating comment 🤯" })
   }
 })
 
@@ -75,7 +75,7 @@ router.put("/:id", async (req, res) => {
 
   } catch (err) {
     console.error("😓 There was an error trying to update the comment:", err)
-    res.status(500).json({ message: "There was a server error updating the comment" })
+    res.status(500).json({ message: "There was a server error updating the comment 🫤" })
   }
 
 })
@@ -94,7 +94,7 @@ router.delete("/:id", async (req, res) => {
 
   } catch (err) {
     console.error("🥲 There was an error trying to deleting the comment", err)
-    res.status(500).json({ message: "There was a server error while trying to delete the comment" })
+    res.status(500).json({ message: "There was a server error while trying to delete the comment 😓" })
   }
 
 })
