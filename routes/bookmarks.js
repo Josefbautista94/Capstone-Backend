@@ -117,4 +117,26 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// DELETE /api/bookmarks/:id
+router.delete("/:id", async (req, res) => {
+  try {
+
+    const { id } = req.params;  // Extract the bookmark ID from the URL
+
+    const deletedBookmark = await Bookmark.findByIdAndDelete(id); // Attempt to delete the bookmark
+
+    if (!deletedBookmark) {
+      return res.status(404).json({ message: "The bookmark wasnt found! Nothing was deleted!" })
+    }
+    
+    return res.status(200).json({ message: "The bookmark was deleted successfully." });
+
+  } catch (err) {
+    console.error("🫤 There was an error trying to delete the bookmark.", err);
+    res.status(500).json({ message: "Server error while deleting the bookmark." })
+  }
+
+
+})
+
 export default router;
