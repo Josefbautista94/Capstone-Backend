@@ -68,6 +68,53 @@ router.post("/", async (req, res) => {
   }
 })
 
-// PUT /api/
+//PUT /api/bookmarks/:id
+router.put("/:id", async (req, res) => {
+  try {
+
+    const { id } = req.params; // Extract bookmark ID from URL
+
+    const { // Destructure fields from the incoming request body to update:
+      cmplntNum,
+      boroNm,
+      ofnsDesc,
+      lawCatCd,
+      pdDesc,
+      latitude,
+      longitude,
+      notes
+    } = req.body; // Optional fields to update
+
+    // If no data is sent, return a 400
+    if (!cmplntNum && !boroNm && !ofnsDesc && !lawCatCd && !pdDesc && !latitude && !longitude && !notes) {
+      return res.status(400).json({ message: "At least one field is required to update the bookmark." });
+    }
+
+    const updatedBookmark = await Bookmark.findByIdAndUpdate( // Update the bookmark using the provided fields
+      id,
+      {
+        cmplntNum,
+        boroNm,
+        ofnsDesc,
+        lawCatCd,
+        pdDesc,
+        latitude,
+        longitude,
+        notes
+      },
+      { new: true } // Return the updated document
+    )
+
+    if (!updatedBookmark) {
+      return res.status(404).json({ message: "The bookmark wasn't found." });
+    }
+
+    res.status(200).json(updatedBookmark)
+
+  } catch (err) {
+    console.error("😭 There was an error updating your bookmark:", err);
+    res.status(500).json({ message: "Server error updating bookmark." })
+  }
+});
 
 export default router;
