@@ -52,6 +52,7 @@ router.post("/", async (req, res) => {
 
 // PUT /api/comments/:id
 router.put("/:id", async (req, res) => {
+
   try {
     const { id } = req.params // Extracts/pulling the comment ID from the URL
     const { area, text } = req.body // Updates the field from the body
@@ -80,7 +81,9 @@ router.put("/:id", async (req, res) => {
 
 })
 
+// DELETE /api/comments/:id
 router.delete("/:id", async (req, res) => {
+
   try {
     const { id } = req.params; // Extract the comment ID from the URL
 
@@ -90,11 +93,24 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "The comment wasnt found! There wasn't anything to delete" })
     }
 
-   return res.status(200).json({ message: "The comment was deleted successfully!" })
+    return res.status(200).json({ message: "The comment was deleted successfully!" })
 
   } catch (err) {
     console.error("🥲 There was an error trying to deleting the comment", err)
     res.status(500).json({ message: "There was a server error while trying to delete the comment 😓" })
+  }
+
+})
+
+//PUT /api/bookmarks/:id
+router.put("/:id", async (req, res) => {
+
+  try {
+
+
+  } catch (err) {
+    console.error({ message: "😭 There was an error updating your bookmark:", err })
+    res.status(500).json({ message: "Server error updating bookmark." })
   }
 
 })
