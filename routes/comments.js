@@ -1,10 +1,10 @@
 import express from "express";
 import Comment from "../models/Comment.js";
+import Bookmark from "../models/Bookmark.js";
 const router = express.Router();
 
 // GET /api/comments/:area
 router.get("/:area", async (req, res) => {
-
   try {
     const area = req.params.area; // Extracts the area value from the URL (e.g., 'bronx' in /api/comments/bronx)
 
@@ -26,7 +26,6 @@ router.get("/:area", async (req, res) => {
 
 // POST /api/comments
 router.post("/", async (req, res) => {
-
   try {
 
     const { area, text } = req.body; // Destructures the request body to create local variables for 'area' and 'text', based on the keys sent in the POST request
@@ -48,11 +47,10 @@ router.post("/", async (req, res) => {
     console.error("😓 Error creating comment:", err);
     res.status(500).json({ message: "Server error creating comment 🤯" })
   }
-})
+});
 
 // PUT /api/comments/:id
 router.put("/:id", async (req, res) => {
-
   try {
     const { id } = req.params // Extracts/pulling the comment ID from the URL
     const { area, text } = req.body // Updates the field from the body
@@ -78,12 +76,10 @@ router.put("/:id", async (req, res) => {
     console.error("😓 There was an error trying to update the comment:", err)
     res.status(500).json({ message: "There was a server error updating the comment 🫤" })
   }
-
-})
+});
 
 // DELETE /api/comments/:id
 router.delete("/:id", async (req, res) => {
-
   try {
     const { id } = req.params; // Extract the comment ID from the URL
 
@@ -100,19 +96,8 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ message: "There was a server error while trying to delete the comment 😓" })
   }
 
-})
-
-//PUT /api/bookmarks/:id
-router.put("/:id", async (req, res) => {
-
-  try {
+});
 
 
-  } catch (err) {
-    console.error({ message: "😭 There was an error updating your bookmark:", err })
-    res.status(500).json({ message: "Server error updating bookmark." })
-  }
-
-})
 
 export default router;
