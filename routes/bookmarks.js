@@ -2,6 +2,7 @@ import express from "express";
 import Bookmark from "../models/Bookmark.js";
 const router = express.Router();
 
+// GET /api/bookmarks
 router.get("/", async (req, res) => {
 
   try {
@@ -65,8 +66,8 @@ router.post("/", async (req, res) => {
     console.error("😓 There was an error saving the bookmark:", err) // if a non 11000 error occurs
     res.status(500).json({ message: "There was a server error saving the bookmark. 😭" });
   }
-
-
 })
+
+// PUT /api/
 
 export default router;
