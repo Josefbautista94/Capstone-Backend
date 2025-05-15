@@ -27,8 +27,7 @@ router.get("/:area", async (req, res) => {
 // POST /api/comments
 router.post("/", async (req, res) => {
   try {
-
-    const { area, text } = req.body; // Destructures the request body to create local variables for 'area' and 'text', based on the keys sent in the POST request
+    const { area, text, latitude, longitude } = req.body; // Destructures the request body to create local variables for 'area','text','latitude',longitude based on the keys sent in the POST request
 
 
     // Checks if 'area' and 'text' are present in the request body
@@ -37,7 +36,7 @@ router.post("/", async (req, res) => {
 
     }
 
-    const newComment = new Comment({ area, text }); // using the comment mongoose model to create a new comment object
+const newComment = new Comment({ area, text, latitude, longitude }) // using the comment mongoose model to create a new comment object
     const savedComment = await newComment.save(); // Saving the new comment to the DB
 
     res.status(201).json(savedComment) // the post was created 👍🏼 returns the saved comment in JSON format
