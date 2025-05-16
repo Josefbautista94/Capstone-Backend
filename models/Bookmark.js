@@ -36,6 +36,18 @@ const BookmarkSchema = new mongoose.Schema({
         type: Date, // Timestamp for when the user bookmarked this crime
         default: Date.now // Automatically set to the current time unless provided
     },
+    crmAtptCptdCd: String,
+    premTypDesc: String,
+    locOfOccurDesc: String,
+    rptDt: String,
+    stationName: String,
+    hadevelopt: String,
+    vicSex: String,
+    vicAgeGroup: String,
+    vicRace: String,
+    suspSex: String,
+    suspAgeGroup: String,
+    suspRace: String,
 });
 
 const Bookmark = mongoose.model("Bookmark", BookmarkSchema); // Tells mongoose, register a model called Bookmark using this schema, MongoDB will create a bookmarks collection (pluralized and lowercase)

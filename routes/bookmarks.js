@@ -32,7 +32,19 @@ router.post("/", async (req, res) => {
       pdDesc,    // Stuff like: "GRAND LARCENY"
       latitude,  // Stuff like:  40.824
       longitude, // Stuff like: -73.911,
-      notes      // Stuff like: "Saw this on the news"
+      notes,    // Stuff like: "Saw this on the news"
+      crmAtptCptdCd,
+      premTypDesc,
+      locOfOccurDesc,
+      rptDt,
+      stationName,
+      hadevelopt,
+      vicSex,
+      vicAgeGroup,
+      vicRace,
+      suspSex,
+      suspAgeGroup,
+      suspRace
 
     } = req.body;
 
@@ -50,7 +62,19 @@ router.post("/", async (req, res) => {
       pdDesc,
       latitude,
       longitude,
-      notes
+      notes,
+      crmAtptCptdCd,
+      premTypDesc,
+      locOfOccurDesc,
+      rptDt,
+      stationName,
+      hadevelopt,
+      vicSex,
+      vicAgeGroup,
+      vicRace,
+      suspSex,
+      suspAgeGroup,
+      suspRace
 
     });
 
@@ -82,7 +106,20 @@ router.put("/:id", async (req, res) => {
       pdDesc,
       latitude,
       longitude,
-      notes
+      notes,
+      crmAtptCptdCd,
+      premTypDesc,
+      locOfOccurDesc,
+      rptDt,
+      stationName,
+      hadevelopt,
+      vicSex,
+      vicAgeGroup,
+      vicRace,
+      suspSex,
+      suspAgeGroup,
+      suspRace
+    
     } = req.body; // Optional fields to update
 
     // If no data is sent, return a 400
@@ -100,7 +137,20 @@ router.put("/:id", async (req, res) => {
         pdDesc,
         latitude,
         longitude,
-        notes
+        notes,
+        crmAtptCptdCd,
+        premTypDesc,
+        locOfOccurDesc,
+        rptDt,
+        stationName,
+        hadevelopt,
+        vicSex,
+        vicAgeGroup,
+        vicRace,
+        suspSex,
+        suspAgeGroup,
+        suspRace
+      
       },
       { new: true } // Return the updated document
     )
